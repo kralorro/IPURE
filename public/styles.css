@@ -22,15 +22,20 @@ table th, tr:nth-child(odd) {
 }  
 
 a{
-    color: gray;
+    color: #605e5e;
 }
 
 a:hover{
-    color: orange;
+    color: #c16e1c;
 }
 
 a:selected{
-    color: gray;
+    color: #605e5e;
+}
+
+.page_footer{
+    color: #e6e6e6;
+    font: 13px Helvetica;
 }
 
 

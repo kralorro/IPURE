@@ -9,6 +9,7 @@ angular.module('TestApp.controllers', []).controller('testController',  ['$scope
             .then(function(response){
             $scope.profile = response.data;
             $scope.loading = false;
+            $scope.display_records = response.data;
         });
     };
                 

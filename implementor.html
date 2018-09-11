@@ -20,16 +20,17 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span> 
                     </button>
-                    <a class="navbar-brand" href="/">PUR Engine</a>
+                    <span class="navbar-brand" href="/">PUR Engine</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                       <li class="active"><a href="/implementor">Home</a></li>
+                      <li><a href="">Log Out</a></li>
                       <!--li><a href="" ng-model="statistic_page">Statistics</a></li-->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                      <!--li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li-->
                     </ul>
             </div>
         </div>
@@ -41,7 +42,7 @@
             <thead>            
                 <tr>
                     <th colspan="8">
-                        <input st-search placeholder="Search" class="input-sm form-control" type="search"/>
+                        <input st-search placeholder="Global Search" class="input-sm form-control" type="search"/>
                     </th>     
                 </tr>
                 
@@ -55,14 +56,14 @@
                     <th><center>Status</center></th>
                     <th><center>Implemented By</center></th>
                     <th><center>Date Implemented</center></th>
-                    <th><center>Actions</center></th>  
+                    <th><center>Action</center></th>  
                 </tr>
-                <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in profile">
+                <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in display_records">
                     <td><center>{{ $index + 1 }}</center></td>
                     <td><center>{{ row.param_name }}</center></td>
                     <td><center>{{ row.requested_by }}</center></td>
                     <td><center>{{ row.date_update }}</center></td>
-                    <td><center>{{ row.status}}</center></td>
+                    <td><center><span class="label label-warning">{{ row.status}}</span></center></td>
                     <td><center>{{ row.implemented_by}}</center></td>
                     <td><center>{{ row.date_implemented}}</center></td>
                     <td><center>
@@ -82,6 +83,7 @@
                         <div st-pagination="" st-items-by-page="itemsByPage"></div>
                     </td>
                 </tr>
+                <th><span class="page_footer">PLDT/Amdocs OSS 2018 &trade;;</span></th>
             </tfoot>
 
         </table>         
