@@ -20,3 +20,18 @@ table tr:nth-child(even) {
 table th, tr:nth-child(odd) {
     background-color: white;
 }  
+
+a{
+    color: gray;
+}
+
+a:hover{
+    color: orange;
+}
+
+a:selected{
+    color: gray;
+}
+
+
+

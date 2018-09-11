@@ -25,7 +25,7 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                      <li class="active"><a href="/">Home</a></li>
+                      <li class="active"><a href="/requestor">Home</a></li>
                       <!--li><a href="" ng-model="statistic_page">Statistics</a></li-->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -37,39 +37,43 @@
     </nav>
     <div class="container">  
         <h1>integrated PUR Engine - Requestor View</h1>
-        <table st-table="display_records"  st-safe-src="info" class="table table-striped" ng-show="disprec">
+        <table st-table="display_records" st-safe-src="info" class="table table-striped" ng-show="disprec">
             <thead ng-show="head">
                 <tr>
-                    <th>Parameter Name</th>
-                    <th>Type</th>
-                    <th>Last Update Date</th>
-                    <th>Updated By</th>
-                </tr>
-                <tr>
-                    <th colspan="5">
+                    <th colspan="6">
                         <input st-search placeholder="Global Search" class="input-sm form-control" type="search"/>
                     </th>
-                    <th><a href="#"><span onclick="refresh()" class="glyphicon glyphicon-refresh"></span></a></th>
+                    <!--th><a href="#"><span onclick="refresh()" class="glyphicon glyphicon-refresh"></span></a></th-->
                 </tr>
             </thead>
         <tbody>
+            <tr>
+                    <th><center>System</center></th>
+                    <th><center>Parameter Name</center></th>
+                    <th><center>Type</center></th>
+                    <th><center>Last Update Date</center></th>
+                    <th><center>Updated By</center></th>
+                    <th><center>Action</center></th>
+                
+            </tr>
             <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in display_records">
+                <td>{{row.system}}</td>
                 <td>{{row.param_name}}</td>
                 <td>{{row.type}}</td>
                 <td>{{row.last_update}}</td>
                 <td>{{row.updated_by}}</td>
                 <td>
                     <center>    
-                        <button type="button" class="btn btn-default" ng-click="getnames(row.param_name)">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                        </button>
+                        <a href="" ng-click="getnames(row.param_name)">
+                            <span class="glyphicon glyphicon-open" style="font-size:20px;" title="View"></span>
+                        </a>
                     </center>    
                 </td>
             </tr>
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5" class="text-center">
+                <td colspan="6" class="text-center">
                     <div st-pagination="" st-items-by-page="itemsByPage" ng-show="footer"></div>
                 </td>
             </tr>
@@ -80,32 +84,36 @@
     <!-- ********** get param data ********** -->
     <table st-table="get_records"  st-safe-src="info" class="table table-striped" ng-show="records">
         <thead ng-show="head">
+            
             <tr>
-                <th ng-repeat="(key, value) in get_records[0]"> {{key}} </th> 
-            </tr>
-            <tr>
-                <th colspan="5">
+                <th colspan="6">
                     <input st-search placeholder="Global Search" class="input-sm form-control" type="search"/>
                 </th>
-                <th><a href="#"><span onclick="refresh()" class="glyphicon glyphicon-refresh"></span></a></th>
             </tr>
         </thead>
 
         <tbody>
+            <tr>
+                <th ng-repeat="(key, value) in get_records[0]"><center>{{key}} </center></th> 
+                <th><center>Action</center></th> 
+            </tr>
             <tr st-select-row="row" st-select-mode="multiple" ng-repeat="(key, value) in get_records">
                 <td ng-repeat="(key, value) in value">{{value}}</td>
                 <td>
                     <center>
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                        </button>
+                        <a href="">
+                            <span class="glyphicon glyphicon-copy" style="font-size:20px;" title="Edit"></span>
+                        </a>
+                        <a href="">
+                            <span class="glyphicon glyphicon-remove" style="font-size:20px;" title="Delete"></span>
+                        </a>
                     </center>    
                 </td>  
             </tr>
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5" class="text-center">
+                <td colspan="6" class="text-center">
                     <div st-pagination="" st-items-by-page="itemsByPage" ng-show="footer"></div>
                 </td>
             </tr>
@@ -114,7 +122,7 @@
       
     <!--label ng-repeat="(key, value) in get_records[0]">{{key}}</label><br-->
     
-    <button type="button" class="btn btn-default" ng-click="addnew()" ng-show="add"> Add New </button> 
+    <button type="button" class="btn btn-primary" ng-click="addnew()" ng-show="add"> Create New Entry </button> 
     <textarea ng-show="txtarea" class="form-control" rows="20" ng-model="newrecord"></textarea>
     <button type="button" class="btn btn-default" ng-click="saveinfo()" ng-show="save"> Save </button> 
 </div>

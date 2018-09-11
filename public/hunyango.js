@@ -1,4 +1,3 @@
-var api_url = "http://localhost:8080";
 var app = angular.module('myApp', ['smart-table', 'ui.filters']);
 app.controller('myCtrl', function($scope, $http){
 //var slists = ["EMM", "TERRA", "FASTDATA"];
@@ -16,7 +15,7 @@ $scope.getModules = function(){
 }**/
 
 //main.html
-$http.get(api_url + '/get_params')
+$http.get('/get_params')
     .then(function(response){
       $scope.head = true;
       $scope.footer = true;
@@ -28,7 +27,7 @@ $http.get(api_url + '/get_params')
 
 //viewparams.html
 $scope.getnames = function(param_name){
-    $http.get(api_url + '/get_param_data?param_name=' + param_name)
+    $http.get('/get_param_data?param_name=' + param_name)
     .then(function(response){
       $scope.get_records = response.data[0].data;
       $scope.info = response.data[0].data;
@@ -48,7 +47,7 @@ $scope.getnames = function(param_name){
 
 //addnew
 $scope.addnew = function(){
-    $http.get(api_url + '/get_param_struct?param_name=' + $scope.paramname)
+    $http.get('/get_param_struct?param_name=' + $scope.paramname)
      .then(function(response){
         //$scope.newrecord = JSON.stringify(response.data, null, 4);
         $scope.newrecords = response.data;
@@ -64,7 +63,7 @@ $scope.addnew = function(){
     
 //savenew
 $scope.saveinfo = function(){
-    $http.get(api_url + '/add_param?param_name=' + $scope.paramname + '&new_record=' + $scope.newrecord)
+    $http.get('/add_param?param_name=' + $scope.paramname + '&new_record=' + $scope.newrecord)
         .then(function(){
             console.log($scope);
             alert('Successfully added')

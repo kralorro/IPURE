@@ -24,7 +24,7 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                      <li class="active"><a href="/">Home</a></li>
+                      <li class="active"><a href="/implementor">Home</a></li>
                       <!--li><a href="" ng-model="statistic_page">Statistics</a></li-->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -40,30 +40,23 @@
         <table st-table="display_records"  st-safe-src="profile" class="table table-striped">
             <thead>            
                 <tr>
-                    <th colspan="7">
+                    <th colspan="8">
                         <input st-search placeholder="Search" class="input-sm form-control" type="search"/>
-                    </th>
-                    <th>
-                        <center><span onclick="reload_page()" class="glyphicon glyphicon-refresh" style="font-size:20px;"></span></center>
-                        <script>
-                            function reload_page() {
-                                location.reload();
-                            }
-                        </script>
-                    </th>        
+                    </th>     
                 </tr>
-
-                <th><center>No.</center></th>
-                <th><center>Parameter Name</center></th>
-                <th><center>Requested By</center></th>
-                <th><center>Date Update</center></th>
-                <th><center>Status</center></th>
-                <th><center>Implemented By</center></th>
-                <th><center>Date Implemented</center></th>
-                <th><center>Actions</center></th>        
+                
             </thead>
             <tbody>
-
+                <tr>
+                    <th><center>No.</center></th>
+                    <th><center>Parameter Name</center></th>
+                    <th><center>Requested By</center></th>
+                    <th><center>Date Update</center></th>
+                    <th><center>Status</center></th>
+                    <th><center>Implemented By</center></th>
+                    <th><center>Date Implemented</center></th>
+                    <th><center>Actions</center></th>  
+                </tr>
                 <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in profile">
                     <td><center>{{ $index + 1 }}</center></td>
                     <td><center>{{ row.param_name }}</center></td>
@@ -74,10 +67,10 @@
                     <td><center>{{ row.date_implemented}}</center></td>
                     <td><center>
                         <a href="#">
-                            <span class="glyphicon glyphicon-import" style="font-size:20px;" ng-click="deleteRow(row.param_name)"></span>
+                            <span class="glyphicon glyphicon-thumbs-up" style="font-size:20px;" ng-click="deleteRow(row.param_name)" title="Tag as Implemented"></span>
                         </a>
                         <a href="/download_param?param_name={{ row.param_name }}">
-                            <span class="glyphicon glyphicon-download" style="font-size:20px;"></span>
+                            <span class="glyphicon glyphicon-save" style="font-size:20px;" title="Download"></span>
                         </a>
                         </center>
                     </td>    
