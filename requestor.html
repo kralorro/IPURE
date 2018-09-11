@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>      
+<head>
+    <title>PUR Engine 1.0</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" >
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.1.8/smart-table.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+    <script src="static/hunyango.js"></script>
+ </head>
+
+<body ng-controller="myCtrl" ng-app="myApp">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span> 
+                    </button>
+                    <a class="navbar-brand" href="/">PUR Engine</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="/">Home</a></li>
+                      <!--li><a href="" ng-model="statistic_page">Statistics</a></li-->
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">  
+        <h1>integrated PUR Engine - Requestor View</h1>
+        <table st-table="display_records"  st-safe-src="info" class="table table-striped" ng-show="disprec">
+            <thead ng-show="head">
+                <tr>
+                    <th>Parameter Name</th>
+                    <th>Type</th>
+                    <th>Last Update Date</th>
+                    <th>Updated By</th>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        <input st-search placeholder="Global Search" class="input-sm form-control" type="search"/>
+                    </th>
+                    <th><a href="#"><span onclick="refresh()" class="glyphicon glyphicon-refresh"></span></a></th>
+                </tr>
+            </thead>
+        <tbody>
+            <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in display_records">
+                <td>{{row.param_name}}</td>
+                <td>{{row.type}}</td>
+                <td>{{row.last_update}}</td>
+                <td>{{row.updated_by}}</td>
+                <td>
+                    <center>    
+                        <button type="button" class="btn btn-default" ng-click="getnames(row.param_name)">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </center>    
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="itemsByPage" ng-show="footer"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+           
+        
+    <!-- ********** get param data ********** -->
+    <table st-table="get_records"  st-safe-src="info" class="table table-striped" ng-show="records">
+        <thead ng-show="head">
+            <tr>
+                <th ng-repeat="(key, value) in get_records[0]"> {{key}} </th> 
+            </tr>
+            <tr>
+                <th colspan="5">
+                    <input st-search placeholder="Global Search" class="input-sm form-control" type="search"/>
+                </th>
+                <th><a href="#"><span onclick="refresh()" class="glyphicon glyphicon-refresh"></span></a></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr st-select-row="row" st-select-mode="multiple" ng-repeat="(key, value) in get_records">
+                <td ng-repeat="(key, value) in value">{{value}}</td>
+                <td>
+                    <center>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </center>    
+                </td>  
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="itemsByPage" ng-show="footer"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+      
+    <!--label ng-repeat="(key, value) in get_records[0]">{{key}}</label><br-->
+    
+    <button type="button" class="btn btn-default" ng-click="addnew()" ng-show="add"> Add New </button> 
+    <textarea ng-show="txtarea" class="form-control" rows="20" ng-model="newrecord"></textarea>
+    <button type="button" class="btn btn-default" ng-click="saveinfo()" ng-show="save"> Save </button> 
+</div>
+</body>
+</html>
+

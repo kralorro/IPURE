@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="TestApp">      
+<head>
+    <title>PUR Engine 1.0</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.1.8/smart-table.min.js"></script>
+    <script src="static/angu_app.js"></script> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/styles.css" >
+ </head>
+
+<body ng-controller="testController">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span> 
+                    </button>
+                    <a class="navbar-brand" href="/">PUR Engine</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="/">Home</a></li>
+                      <!--li><a href="" ng-model="statistic_page">Statistics</a></li-->
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>integrated PUR Engine - Implementor View</h1>
+        <table st-table="display_records"  st-safe-src="profile" class="table table-striped">
+            <thead>            
+                <tr>
+                    <th colspan="7">
+                        <input st-search placeholder="Search" class="input-sm form-control" type="search"/>
+                    </th>
+                    <th>
+                        <center><span onclick="reload_page()" class="glyphicon glyphicon-refresh" style="font-size:20px;"></span></center>
+                        <script>
+                            function reload_page() {
+                                location.reload();
+                            }
+                        </script>
+                    </th>        
+                </tr>
+
+                <th><center>No.</center></th>
+                <th><center>Parameter Name</center></th>
+                <th><center>Requested By</center></th>
+                <th><center>Date Update</center></th>
+                <th><center>Status</center></th>
+                <th><center>Implemented By</center></th>
+                <th><center>Date Implemented</center></th>
+                <th><center>Actions</center></th>        
+            </thead>
+            <tbody>
+
+                <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in profile">
+                    <td><center>{{ $index + 1 }}</center></td>
+                    <td><center>{{ row.param_name }}</center></td>
+                    <td><center>{{ row.requested_by }}</center></td>
+                    <td><center>{{ row.date_update }}</center></td>
+                    <td><center>{{ row.status}}</center></td>
+                    <td><center>{{ row.implemented_by}}</center></td>
+                    <td><center>{{ row.date_implemented}}</center></td>
+                    <td><center>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-import" style="font-size:20px;" ng-click="deleteRow(row.param_name)"></span>
+                        </a>
+                        <a href="/download_param?param_name={{ row.param_name }}">
+                            <span class="glyphicon glyphicon-download" style="font-size:20px;"></span>
+                        </a>
+                        </center>
+                    </td>    
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="8" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage"></div>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>         
+    </div>
+</body>
+</html>
+

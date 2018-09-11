@@ -1,0 +1,22 @@
+.page-header{
+    background-color: black!important;
+}
+
+.thumbnail{
+    border: 2px;
+    background-color: black!important;
+}
+
+td  {
+    border: 1px solid white;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+table tr:nth-child(even) {
+    background-color: #faeada;
+}
+
+table th, tr:nth-child(odd) {
+    background-color: white;
+}  
