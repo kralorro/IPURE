@@ -110,14 +110,6 @@ app.get('/add_param', (request, response) => {
                         console.log("one document inserted");
                     });
                 });
-
-                // insert the new param_name.current record
-                /*
-                dbo.collection(param_name).insertOne(jsonStr, function(err, res) {
-                    if (err) throw err;
-                    console.log("one document inserted");
-                });
-                */
                 db.close();
 
                 // update param_changes to reflect in implementors view
@@ -281,7 +273,7 @@ app.get('/download_param',(request, response) => {
     });
 });
 
-
+   
 app.get('/tag_as_implemented',(request, response) => {
     var param_name = request.query.param_name;
 
