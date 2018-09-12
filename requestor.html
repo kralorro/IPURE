@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>      
+<html ng-app="myApp">      
 <head>
     <title>PUR Engine 1.0</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" >
     <link rel="stylesheet" type="text/css" href="static/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
@@ -12,122 +11,128 @@
     <script src="static/hunyango.js"></script>
  </head>
 
-<body ng-controller="myCtrl" ng-app="myApp">
+<body ng-controller="myCtrl">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span> 
-                    </button>
-                    <span class="navbar-brand" href="/">PUR Engine</span>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> 
+                </button>
+                <span class="navbar-brand" href="/">PUR Engine</span>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                      <li class="active"><a href="/requestor">Home</a></li>
-                      <li><a href="">Log Out</a></li>
-                      <!--li><a href="" ng-model="statistic_page">Statistics</a></li-->
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                      <!--li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li-->
-                    </ul>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/requestor">Home</a></li>
+                    <li><a href="">Log Out</a></li>
+                    <!--li><a href="" ng-model="statistic_page">Statistics</a></li-->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <!--li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li-->
+                </ul>
             </div>
         </div>
     </nav>
-    <div class="container">  
-        <h1>integrated PUR Engine - Requestor View</h1>
-        <table st-table="display_records" st-safe-src="info" class="table table-striped" ng-show="disprec">
-            <thead ng-show="head">
-                <tr>
-                    <th colspan="6">
-                        <input st-search placeholder="Global Search" class="input-sm form-control" type="search"/>
-                    </th>
-                    <!--th><a href="#"><span onclick="refresh()" class="glyphicon glyphicon-refresh"></span></a></th-->
-                </tr>
-            </thead>
-        <tbody>
-            <tr>
-                    <th><center>System</center></th>
-                    <th><center>Parameter Name</center></th>
-                    <th><center>Type</center></th>
-                    <th><center>Last Update Date</center></th>
-                    <th><center>Updated By</center></th>
-                    <th><center>Action</center></th>
-                
-            </tr>
-            <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in display_records">
-                <td>{{row.system}}</td>
-                <td>{{row.param_name}}</td>
-                <td>{{row.type}}</td>
-                <td>{{row.last_update}}</td>
-                <td>{{row.updated_by}}</td>
-                <td>
-                    <center>    
-                        <a href="" ng-click="getnames(row.param_name)">
-                            <span class="glyphicon glyphicon-open" style="font-size:20px;" title="View"></span>
-                        </a>
-                    </center>    
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="6" class="text-center">
-                    <div st-pagination="" st-items-by-page="itemsByPage" ng-show="footer"></div>
-                </td>
-            </tr>
-            <th><span class="page_footer">PLDT/Amdocs OSS 2018 &trade;;</span></th>
-        </tfoot>
-    </table>
-           
-        
-    <!-- ********** get param data ********** -->
-    <table st-table="get_records"  st-safe-src="info" class="table table-striped" ng-show="records">
-        <thead ng-show="head">
-            
-            <tr>
-                <th colspan="6">
-                    <input st-search placeholder="Global Search" class="input-sm form-control" type="search"/>
-                </th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-                <th ng-repeat="(key, value) in get_records[0]"><center>{{key}} </center></th> 
-                <th><center>Action</center></th> 
-            </tr>
-            <tr st-select-row="row" st-select-mode="multiple" ng-repeat="(key, value) in get_records">
-                <td ng-repeat="(key, value) in value">{{value}}</td>
-                <td>
-                    <center>
-                        <a href="">
-                            <span class="glyphicon glyphicon-copy" style="font-size:20px;" title="Edit"></span>
-                        </a>
-                        <a href="">
-                            <span class="glyphicon glyphicon-remove" style="font-size:20px;" title="Delete"></span>
-                        </a>
-                    </center>    
-                </td>  
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="6" class="text-center">
-                    <div st-pagination="" st-items-by-page="itemsByPage" ng-show="footer"></div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-      
-    <!--label ng-repeat="(key, value) in get_records[0]">{{key}}</label><br-->
     
-    <button type="button" class="btn btn-primary" ng-click="addnew()" ng-show="add"> Create New Entry </button> 
-    <textarea ng-show="txtarea" class="form-control" rows="20" ng-model="newrecord"></textarea>
-    <button type="button" class="btn btn-default" ng-click="saveinfo()" ng-show="save"> Save </button> 
-</div>
+    <div class="container">  
+        <div class="row">
+            <div class="col-*-*"><h1>integrated PUR Engine - Requestor View</h1></div>
+        </div>    
+        <div class="row">
+            <div class="col-*-*">
+                <table st-table="display_records" st-safe-src="info" class="table table-striped" ng-show="disprec">
+                    <thead ng-show="head">
+                        <tr>
+                            <th colspan="6">
+                                <input st-search placeholder="Global Search" class="input-sm form-control" type="search"/>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                             <th><center>System</center></th>
+                             <th><center>Parameter Name</center></th>
+                             <th><center>Type</center></th>
+                             <th><center>Last Update Date</center></th>
+                             <th><center>Updated By</center></th>
+                             <th><center>Action</center></th>   
+                        </tr>
+                        <tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in display_records">
+                            <td>{{row.system}}</td>
+                            <td>{{row.param_name}}</td>
+                            <td>{{row.type}}</td>
+                            <td>{{row.last_update}}</td>
+                            <td>{{row.updated_by}}</td>
+                            <td>
+                                <center>    
+                                    <a href="" ng-click="getnames(row.param_name)">
+                                        <span class="glyphicon glyphicon-open" style="font-size:20px;" title="View"></span>
+                                    </a>
+                                    <a href="">
+                                        <span class="glyphicon glyphicon-dashboard" style="font-size:20px;" title="History"></span>
+                                    </a>
+                                </center>    
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                <div st-pagination="" st-items-by-page="itemsByPage" ng-show="footer"></div>
+                            </td>
+                        </tr>
+                        <th><span class="page_footer">PLDT/Amdocs OSS 2018 &trade;</span></th>
+                    </tfoot>
+                </table>
+
+
+                <!-- ********** get param data ********** -->
+                <table st-table="get_records"  st-safe-src="info" class="table table-striped" ng-show="records">
+                    <thead ng-show="head">
+
+                        <tr>
+                            <th colspan="6">
+                                <input st-search placeholder="Global Search" class="input-sm form-control" type="search"/>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <th ng-repeat="(key, value) in get_records[0]"><center>{{key}} </center></th> 
+                            <th><center>Action</center></th> 
+                        </tr>
+                        <tr st-select-row="row" st-select-mode="multiple" ng-repeat="(key, value) in get_records">
+                            <td ng-repeat="(key, value) in value">{{value}}</td>
+                            <td>
+                                <center>
+                                    <a href="">
+                                        <span class="glyphicon glyphicon-copy" style="font-size:20px;" title="Edit"></span>
+                                    </a>
+                                    <a href="">
+                                        <span class="glyphicon glyphicon-remove" style="font-size:20px;" title="Delete"></span>
+                                    </a>
+                                </center>    
+                            </td>  
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                <div st-pagination="" st-items-by-page="itemsByPage" ng-show="footer"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>    
+        <!--label ng-repeat="(key, value) in get_records[0]">{{key}}</label><br-->
+        <button type="button" class="btn btn-primary" ng-click="addnew()" ng-show="add"> Create New Entry </button> 
+        <textarea ng-show="txtarea" class="form-control" rows="20" ng-model="newrecord"></textarea>
+        <button type="button" class="btn btn-default" ng-click="saveinfo()" ng-show="save"> Save </button> 
+    </div>
 </body>
 </html>
 
