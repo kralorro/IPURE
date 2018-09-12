@@ -73,7 +73,7 @@ app.get('/add_param', (request, response) => {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 
-        console.log("Connection to Mongo database established... ");
+        console.log("add_param: Connection to Mongo database established... ");
         var dbo = db.db(pur_emm);
         var curr = param_name + '.current';
         dbo.collection(param_name).find({"param_name":curr}).toArray(function(err, result) {
@@ -157,7 +157,7 @@ app.get('/get_params',(request, response) => {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 
-        console.log("Connection to Mongo database established... ");
+        console.log("get_params: Connection to Mongo database established... ");
         var dbo = db.db(pur_config);
         dbo.collection(param_config).find({}).toArray(function(err, result) {
             if (err) throw err;
@@ -174,7 +174,7 @@ app.get('/get_param_struct',(request, response) => {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 
-        console.log("Connection to Mongo database established... ");
+        console.log("get_param_struct: Connection to Mongo database established... ");
         var dbo = db.db(pur_config);
         dbo.collection(param_config).find({"param_name":param_name}).toArray(function(err, result) {
             if (err) throw err;
@@ -191,10 +191,31 @@ app.get('/get_param_data',(request, response) => {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 
-        console.log("Connection to Mongo database established... ");
+        console.log("get_param_data: Connection to Mongo database established... ");
         var dbo = db.db(pur_emm);
         var curr = param_name + '.current';
         dbo.collection(param_name).find({"param_name":curr}).toArray(function(err, result) {
+            if (err) throw err;
+            response.send(result);
+            db.close();
+        });
+    });
+});
+
+
+app.get('/get_history',(request, response) => {
+    var param_name = request.query.param_name;
+    
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+
+        console.log("get_history: Connection to Mongo database established... ");
+        var dbo = db.db(pur_emm);
+        var sort_by = { param_name: -1 };
+        dbo.collection(param_name).find(
+            {param_name: {"$regex":"^((?!current).)*$"}}, 
+            { projection: { _id: 0, data: 0}}
+        ).sort(sort_by).toArray(function(err, result) {
             if (err) throw err;
             response.send(result);
             db.close();
@@ -209,7 +230,7 @@ app.get('/get_changes',(request, response) => {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 
-        console.log("Connection to Mongo database established... ");
+        console.log("get_changes: Connection to Mongo database established... ");
         var dbo = db.db(pur_config);
         dbo.collection(param_changes).find({"status":"pending"}).toArray(function(err, result) {
             if (err) throw err;
@@ -226,7 +247,7 @@ app.get('/download_param',(request, response) => {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 
-        console.log("Connection to Mongo database established... ");
+        console.log("download_param: Connection to Mongo database established... ");
         var dbo = db.db(pur_emm);
         var curr = param_name + '.current';
         dbo.collection(param_name).find({"param_name":curr}).toArray(function(err, result) {
@@ -266,7 +287,7 @@ app.get('/tag_as_implemented',(request, response) => {
 
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
-        console.log("Connection to Mongo database established... ");
+        console.log("tag_as_implemented: Connection to Mongo database established... ");
         var dbo = db.db(pur_config);
 
         var myquery = { "param_name": param_name, "status": "pending"};
